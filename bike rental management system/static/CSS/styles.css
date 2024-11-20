@@ -1,0 +1,41 @@
+.bkimg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 900px;
+    }
+/* Ensure the welcome section has the background image */
+.welcome-section {
+  background-image: url('{{ url_for("static", filename="images/im1.jpg") }}');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Optional: gives a parallax effect */
+  height: 100vh; /* Make it full screen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white; /* Ensure text is visible */
+  position: relative;
+}
+
+/* Optional: Adding a darker overlay to improve text visibility */
+.welcome-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); /* Darken the image */
+  z-index: 0; /* Place it behind the text */
+}
+
+.welcome-section .container {
+  position: relative;
+  z-index: 1; /* Ensure the text is on top of the overlay */
+}
+
+.bkimg {
+  width: 100%; /* Make the image responsive */
+  height: auto;
+}

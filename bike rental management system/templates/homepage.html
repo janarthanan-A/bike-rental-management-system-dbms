@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Rental Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        .table th, .table td {
+            text-align: center;
+        }
+        .card-header {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Bike Rental Management System</h1>
+
+        <!-- Search Form -->
+        <div class="mb-3 text-center">
+            <form action="/search" method="POST" class="form-inline">
+                <input type="text" name="bike_id" class="form-control mr-2" placeholder="Search by Bike ID" required>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <!-- Display Bikes Table -->
+        <div class="card">
+            <div class="card-header">
+                <h4>Available Bikes</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Bike ID</th>
+                            <th>Model</th>
+                            <th>Brand</th>
+                            <th>Price per Hour</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bike in bikes %}
+                            <tr>
+                                <td>{{ bike[0] }}</td>   <!-- Bike ID -->
+                                <td>{{ bike[1] }}</td>   <!-- Model -->
+                                <td>{{ bike[2] }}</td>   <!-- Brand -->
+                                <td>${{ bike[3] }}</td>  <!-- Price per Hour -->
+                                <td>
+                                    <a href="/edit/{{ bike[0] }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="/delete/{{ bike[0] }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this bike?')">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add New Bike Form -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4>Add a New Bike</h4>
+            </div>
+            <div class="card-body">
+                <form action="/insert" method="POST">
+                    <div class="form-group">
+                        <label for="bike_id">Bike ID:</label>
+                        <input type="text" class="form-control" name="bike_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="model">Model:</label>
+                        <input type="text" class="form-control" name="model" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="brand">Brand:</label>
+                        <input type="text" class="form-control" name="brand" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price_per_hour">Price per Hour ($):</label>
+                        <input type="number" class="form-control" name="price_per_hour" required>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-3">Add Bike</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
